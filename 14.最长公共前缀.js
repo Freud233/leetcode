@@ -9,15 +9,17 @@
  * @param {string[]} strs
  * @return {string}
  */
-var longestCommonPrefix = function(strs) {
+var longestCommonPrefix = function (strs) {
   if (strs.length == 0) return ''
-  let comm = strs[0].split('')
-  for (let i = 0; i < comm.length; i++) {
-    strs.forEach((item, index) => {
-      if (item.indexOf(comm[i]) != -1) {
-        comm = item.slice(0, index)
+  let comm = strs[0]
+  for (let i = 0; i < strs.length; i++) {
+    let j = 0;
+    for (;j < comm.length && j < strs[i].length; j++) {
+      if (comm[j] != strs[i][j]) {
+        break;
       }
-    })
+    } 
+    comm = comm.slice(0, j)
   }
   return comm
 };
