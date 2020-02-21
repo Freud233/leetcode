@@ -1,14 +1,3 @@
-/*
- * @lc app=leetcode.cn id=20 lang=javascript
- *
- * [20] 有效的括号
- */
-
-// @lc code=start
-/**
- * @param {string} s
- * @return {boolean}
- */
 var isValid = function (s) {
   let bracketLeftOne = 0, bracketLeftTwo = 0, bracketLeftThree = 0, bracketArr = [];
   for (let i = 0; i < s.length; i++) {
@@ -19,11 +8,7 @@ var isValid = function (s) {
         break;
       case ')':
         bracketLeftOne -= 1;
-        if (bracketArr[bracketArr.length - 1] == '(') {
-          bracketArr.pop()
-        } else {
-          return false;
-        }
+        if (bracketArr[bracketArr.length - 1] == '(') bracketArr.pop()
         break;
       case '[':
         bracketLeftTwo += 1;
@@ -31,11 +16,7 @@ var isValid = function (s) {
         break;
       case ']':
         bracketLeftTwo -= 1;
-        if (bracketArr[bracketArr.length - 1] == '[') {
-          bracketArr.pop()
-        } else {
-          return false
-        }
+        if (bracketArr[bracketArr.length - 1] == '[') bracketArr.pop()
         break;
       case '{':
         bracketLeftThree += 1;
@@ -43,17 +24,11 @@ var isValid = function (s) {
         break;
       case '}':
         bracketLeftThree -= 1;
-        if (bracketArr[bracketArr.length - 1] == '{') {
-          bracketArr.pop()
-        } else {
-          return false
-        }
+        if (bracketArr[bracketArr.length - 1] == '{') bracketArr.pop()
         break;
     }
-
   }
   if (bracketLeftOne || bracketLeftTwo || bracketLeftThree) return false;
   if (bracketArr == '') return true
 };
-// @lc code=end
-
+console.log(isValid("()"));
