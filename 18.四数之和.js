@@ -10,16 +10,28 @@
  * @param {number} target
  * @return {number[][]}
  */
-var fourSum = function(nums, target) {
-  let arr = [0, 1, 2, 3];
-  let fourSumArr = [];
+var fourSum = function (nums, target) {
+  if (nums.length < 4) return []
+  let fourSumArr = []
+  nums.sort((a, b) => a - b)
   for (let i = 0; i < nums.length - 3; i++) {
-    for (let j = 0; j < nums.length; j++) {
-      if (nums[arr[0]] + nums[arr[1]] + nums[arr[2]] + nums[arr[3 + j]] == target) {
-        fourSumArr.push([nums[arr[0]],nums[arr[1]],nums[arr[2]],nums[arr[j + 3]]])
+    for (let j = i + 1; j < nums.length - 2; j++) {
+      let l = j + 1, r = nums.length - 1
+      while (l < r) {
+        if (nums[i] + nums[j] + nums[l] + nums[r] === target) {
+          fourSumArr.push([nums[i], nums[j], nums[l], nums[r]])
+          // 如果第三与它后一位数字相同, 那么就跳过, 去重
+          while (l < r && nums[l] === nums[++l]) { }
+          while (l < r && nums[r] === nums[--r]) { }
+          l++
+          r--
+        } else if (nums[i] + nums[j] + nums[l] + nums[r] < target) {
+          l++
+        } else if (nums[i] + nums[j] + nums[l] + nums[r] > target) {
+          r--
+        }
       }
     }
-    arr = arr.map(x => x + 1)
   }
   return fourSumArr
 };

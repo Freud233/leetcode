@@ -10,29 +10,32 @@
  * @return {number[][]}
  */
 var threeSum = function (nums) {
-  // 如果长度小于 3 返回 []
-  if (nums.length < 3) return []
-  // 1. nums 排序
-  nums.sort()
-  let arr = []
+  let resArr = []
+  if (nums.length < 3) return resArr
+  // 排序
+  nums.sort((a, b) => a - b)
   for (let i = 0; i < nums.length; i++) {
-    let l = i + 1; r = nums.length - 1 - i;
-    if (nums[i] > 0) return arr
+    // 长度小于3直接返回
+    if (nums[i] > 0) return resArr
+    // 左右指针
+    let l = i + 1, r = nums.length - 1;
+    if (i > 0 && nums[i] == nums[i-1]) continue // 去重
     while (l < r) {
-      if (nums[l] == nums[i]) l++;
-      if (nums[r] == nums[i]) r--;
-      if (nums[i] + nums[l] + nums[r] == 0) {
-        arr.push([nums[i], nums[l], nums[r]])
-        l++;
-        r--;
-      } else if (nums[i] + nums[l] + nums[r] > 0) {
-        r--;
-      } else if (nums[i] + nums[l] + nums[r] < 0) {
-        l++;
+      let result = nums[i] + nums[l] + nums[r]
+      if (result === 0) {
+        resArr.push([nums[i], nums[l], nums[r]])
+        while (nums[l] == nums[l + 1] && l < r) l++ // 去重
+        while (nums[r] == nums[r - 1] && l < r) r-- // 去重
+        l++
+        r--
+      } else if (result > 0) {
+        r--
+      } else if (result < 0) {
+        l++
       }
     }
   }
-  return arr
+  return resArr
 };
 // @lc code=end
 
